@@ -10,22 +10,28 @@ interface Product {
 
 interface ProductContextProps {
   products: Product[]
-  getById: (id: string) => Product
+  getById(id: string):Product
+  deleteProduct(id: string): void
 }
 
 export const ProductContext = createContext<ProductContextProps>({
   products: [],
-  getById: () => ({} as Product)
+  getById: () => ({} as Product),
+  deleteProduct: (id: string) => {}
 })
 
 export const ProductProvider: React.FC = ({ children }) => {
   const [products, setProducts] = useState<Product[]>([])
   const getById = (id: string) => products.find(product => product.id === id)
 
-  const value = useMemo(() => ({
-    products,
-    getById
-  }), [products])
+  const deleteProduct = async (id: string) => {
+    try {
+      const result = await api.delete(`/products/${id}`)
+      console.log(result)
+    } catch (error) {
+      console.log()
+    }
+  }
 
   useEffect(() => {
     async function fetchProducts () {
@@ -35,6 +41,12 @@ export const ProductProvider: React.FC = ({ children }) => {
 
     fetchProducts()
   }, [])
+
+  const value = useMemo(() => ({
+    products,
+    getById,
+    deleteProduct
+  }), [products])
 
   return (
     <ProductContext.Provider value={value}>
