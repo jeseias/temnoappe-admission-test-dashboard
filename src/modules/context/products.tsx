@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useMemo, useState } from 'react'
+import React, { createContext, useContext, useMemo, useState, useEffect } from 'react'
+import { api } from '../../services/axios'
 
 interface Product {
   id: string
@@ -18,21 +19,22 @@ export const ProductContext = createContext<ProductContextProps>({
 })
 
 export const ProductProvider: React.FC = ({ children }) => {
-  const [products] = useState<Product[]>([
-    {
-      id: 'asdasdas',
-      name: 'TV LG 55 polegadas',
-      image: 'https://images-submarino.b2w.io/produtos/01/00/img/3397039/7/3397039703_1GG.jpg',
-      description: 'Produto super incrivel manos'
-    }
-  ])
-
+  const [products, setProducts] = useState<Product[]>([])
   const getById = (id: string) => products.find(product => product.id === id)
 
   const value = useMemo(() => ({
     products,
     getById
   }), [products])
+
+  useEffect(() => {
+    async function fetchProducts () {
+      const result = await api.get('/products')
+      setProducts(result.data)
+    }
+
+    fetchProducts()
+  }, [])
 
   return (
     <ProductContext.Provider value={value}>
