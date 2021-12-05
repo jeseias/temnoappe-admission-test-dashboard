@@ -1,14 +1,7 @@
 {
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
   "env": {
     "browser": true,
-    "es2021": true,
-    "node": true,
-    "jest": true
+    "es2021": true
   },
   "extends": [
     "plugin:react/recommended",
@@ -19,7 +12,7 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": 13,
+    "ecmaVersion": 12,
     "sourceType": "module"
   },
   "plugins": [
@@ -27,11 +20,5 @@
     "@typescript-eslint"
   ],
   "rules": {
-    "@typescript-eslint/consistent-type-definition": "off",
-    "@typescript-eslint/strict-boolean-expression": "off",
-    "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error",
-    "react/react-in-jsx-scope": "off",
-    "no-use-before-define": "off"
   }
 }
