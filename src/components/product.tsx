@@ -1,13 +1,7 @@
 import React from 'react'
 import { Image, Text, Grid } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
-
-interface ProductProps {
-  id: string
-  name: string
-  image: string
-  description: string
-}
+import { ProductProps } from '../modules/context/products/product-context.types'
 
 export const Product = ({ id, name, image, description }: ProductProps) => {
   const navigate = useNavigate()

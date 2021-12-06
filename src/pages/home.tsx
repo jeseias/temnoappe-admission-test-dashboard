@@ -3,8 +3,8 @@ import { Box, Grid, Heading, Text } from '@chakra-ui/react'
 import { v4 as uuid } from 'uuid'
 import { Product } from '../components/product'
 import { Link } from 'react-router-dom'
-import { useProducts } from '../modules/context/products'
 import { GreenButton } from '../components/green-button'
+import { useProducts } from '../modules/hooks/use-products'
 
 const Home: React.FC = () => {
   const { products } = useProducts()

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Box, Button, Heading, Input, Textarea, Text, Flex } from '@chakra-ui/react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useProducts } from '../modules/context/products'
 import { GreenButton } from '../components/green-button'
+import { useProducts } from '../modules/hooks/use-products'
 
 const Edit: React.FC = () => {
   const { id } = useParams()

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Box, Button, Heading, Input, Textarea } from '@chakra-ui/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useProducts } from '../modules/context/products'
 import { useNavigate } from 'react-router-dom'
+import { useProducts } from '../modules/hooks/use-products'
 
 interface AddProduct {
   name: string
@@ -11,16 +11,13 @@ interface AddProduct {
 }
 
 const New: React.FC = () => {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<AddProduct>()
-
+  const { register, handleSubmit } = useForm<AddProduct>()
   const { addProduct } = useProducts()
   const navigate = useNavigate()
-
   const onSubmit: SubmitHandler<AddProduct> = (data) => {
     addProduct(data)
     navigate('/')
   }
-
   return (
     <Box>
       <Heading>Cadastrar novo Producto</Heading>

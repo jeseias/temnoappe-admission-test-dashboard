@@ -1,38 +1,18 @@
-import React, { createContext, useContext, useMemo, useState, useEffect } from 'react'
-import { api } from '../../services/axios'
-
-interface Product {
-  id: string
-  name: string
-  image: string
-  description: string
-}
-
-interface AddProduct {
-  name: string
-  image: string
-  description: string
-}
-
-interface ProductContextProps {
-  products: Product[]
-  getById(id: string):Product
-  deleteProduct(id: string): void
-  addProduct(data: AddProduct): void
-  updateProduct(id: string, data: AddProduct): void
-}
+import React, { createContext, useMemo, useState, useEffect } from 'react'
+import { api } from '../../../services/axios'
+import { AddProduct, ProductProps, ProductContextProps } from './product-context.types'
 
 export const ProductContext = createContext<ProductContextProps>({
   products: [],
-  getById: () => ({} as Product),
+  getById: () => ({} as ProductProps),
   deleteProduct: (id: string) => {},
   addProduct: () => {},
   updateProduct: () => {}
 })
 
 export const ProductProvider: React.FC = ({ children }) => {
-  const [products, setProducts] = useState<Product[]>([])
-  const getById = (id: string) => products.find(product => product.id === id)
+  const [products, setProducts] = useState<ProductProps[]>([])
+  const getById = (id: string) => products.find<ProductProps>(product => product.id === id)
 
   async function fetchProducts () {
     const result = await api.get('/products')
@@ -48,7 +28,7 @@ export const ProductProvider: React.FC = ({ children }) => {
     }
   }
 
-  const addProduct = async (data) => {
+  const addProduct = async (data: AddProduct) => {
     try {
       const result = await api.post('/products', data)
       setProducts([
@@ -61,7 +41,7 @@ export const ProductProvider: React.FC = ({ children }) => {
     }
   }
 
-  const updateProduct = async (id: string, data) => {
+  const updateProduct = async (id: string, data: AddProduct) => {
     try {
       const result = await api.patch(`/products/${id}`, data)
       await fetchProducts()
@@ -90,5 +70,3 @@ export const ProductProvider: React.FC = ({ children }) => {
     </ProductContext.Provider>
   )
 }
-
-export const useProducts = () => useContext(ProductContext)
