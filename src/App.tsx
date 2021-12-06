@@ -8,14 +8,14 @@ import { ProductProvider } from './modules/context/products'
 
 export default function App () {
   return (
-    <ProductProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <ProductProvider>
         <ChakraProvider theme={theme}>
           <PageWrapper>
             <Pages />
           </PageWrapper>
         </ChakraProvider>
-      </BrowserRouter>
-    </ProductProvider>
+      </ProductProvider>
+    </BrowserRouter>
   )
 }

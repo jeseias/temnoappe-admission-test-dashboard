@@ -30,11 +30,11 @@ const Home: React.FC = () => {
         </Grid>
         <Grid>
           {products.map(product => (
-            <Product key={uuid()} {...product}/>
+            <Product key={uuid()} {...product} />
           ))}
         </Grid>
       </Box>
-      <Link to="new">
+      <Link to="/new">
         <GreenButton>Novo Produto</GreenButton>
       </Link>
     </Box>
