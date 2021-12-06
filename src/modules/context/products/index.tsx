@@ -12,7 +12,7 @@ export const ProductContext = createContext<ProductContextProps>({
 
 export const ProductProvider: React.FC = ({ children }) => {
   const [products, setProducts] = useState<ProductProps[]>([])
-  const getById = (id: string) => products.find<ProductProps>(product => product.id === id)
+  const getById = (id: string) => products.find(product => product.id === id)
 
   async function fetchProducts () {
     const result = await api.get('/products')

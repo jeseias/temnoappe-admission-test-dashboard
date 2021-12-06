@@ -3,13 +3,14 @@ import { Box, Button, Heading, Input, Textarea, Text, Flex } from '@chakra-ui/re
 import { useNavigate, useParams } from 'react-router-dom'
 import { GreenButton } from '../components/green-button'
 import { useProducts } from '../modules/hooks/use-products'
+import { ProductProps } from 'modules/context/products/product-context.types'
 
 const Edit: React.FC = () => {
-  const { id } = useParams()
+  const { id } = useParams() as { id: string }
   const { getById, deleteProduct, updateProduct } = useProducts()
-  const product = getById(id)
 
   const [values, setValues] = useState({ name: '', image: '', description: '' })
+  const [product, setProduct] = useState({} as ProductProps | undefined)
 
   const navigate = useNavigate()
 
@@ -24,17 +25,18 @@ const Edit: React.FC = () => {
   }
 
   useEffect(() => {
-    // if (!product) {
-    //   navigate('/')
-    // }
-    if (product) {
-      setValues({
-        name: product.name,
-        image: product.image,
-        description: product.description
-      })
+    if (id) {
+      const product = getById(id)
+      setProduct(product)
+      if (product) {
+        setValues({
+          name: product.name,
+          image: product.image,
+          description: product.description
+        })
+      }
     }
-  }, [product])
+  }, [id])
 
   return (
     <Box>

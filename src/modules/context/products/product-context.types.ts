@@ -13,7 +13,7 @@ export interface AddProduct {
 
 export interface ProductContextProps {
   products: ProductProps[]
-  getById(id: string): ProductProps
+  getById(id: string): ProductProps | undefined
   deleteProduct(id: string): void
   addProduct(data: AddProduct): void
   updateProduct(id: string, data: AddProduct): void
